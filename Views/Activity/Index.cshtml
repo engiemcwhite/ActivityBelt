@@ -1,0 +1,77 @@
+<html>
+    <head>
+       <meta charset='utf-8'>
+       <title>Weddings</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="~/css/style.css"/>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="topbar">
+                <h1 class="top">Dojo Activity Center</h1>
+                Welcome @ViewBag.Name.FirstName! &nbsp; &nbsp;
+                <a href="/logout">Log Off</a> 
+            </div>
+            <br><br>
+            <table>
+                <tr>
+                    <th>Activity</th>
+                    <th>Date and Time</th>
+                    <th>Duration</th>
+                    <th>Event Coordinator</th>
+                    <th>Number of Participants</th>
+                    <th>Actions</th>
+                </tr>
+                @{
+                    foreach(var act in ViewBag.AllActivities){
+                        <tr>
+                            <td><a href=/activity/@act.ActivityId>@act.Title</a></td>
+                            <td>@act.StartTime.ToString("M/d, yyyy @ h:mm tt")</td>
+                            @if(act.Duration.Days > 0){
+                                <td>@act.Duration.Days days</td>
+                            }
+                            else if(act.Duration.Hours > 0){
+                                <td>@act.Duration.Hours hours</td>
+                            }
+                            else{
+                                <td>@act.Duration.Minutes minutes</td>
+                            }
+                            <td>@act.User.FirstName</td>
+                            <td>@act.Participants.Count</td>
+                            
+                            @if(act.UserId == ViewBag.Id){
+                                <td><a href=/delete/@act.ActivityId>Delete</a></td>
+                            }
+                            else{
+                                Boolean isrsvp = false; 
+                                foreach(var part in act.Participants){
+                                    if(part.UserId == ViewBag.Id){
+                                        isrsvp = true;
+                                        break;
+                                    }
+                                }
+                                if(isrsvp == true){
+                                    <td><a href=/unrsvp/@act.ActivityId>Leave</a></td>
+                                }
+                                else{
+                                    <td><a href=/rsvp/@act.ActivityId>Join</a></td>
+                                }
+                            }
+                        </tr>
+                    }    
+                }
+            </table>
+            <br><br>
+            <form action="/New">
+                <button type="submit">Add New Activity!</button>
+            </form>
+            <br>
+            @{
+                if(ViewBag.SchedError == 1){
+                    <p>One or more activities you are participating in conflicts with this activity, so you cannot join it!</p>
+                }
+            }
+        </div>
+            
+    </body>
+</html>

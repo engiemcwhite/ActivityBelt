@@ -1,0 +1,55 @@
+*{
+    margin : 0px;
+    padding : 0px;
+}
+
+.wrapper{
+    width: 970px; 
+}
+
+.initbox{
+    display: inline-block;
+    width: 400px;
+    text-align: right; 
+}
+
+label{
+    margin: 5px;
+}
+
+td, th{
+    width: 200px;
+    overflow: hidden;
+    border: 1px solid black;
+}
+
+th{
+    font-weight: bold;
+}
+
+table{
+    margin-top: 10px;
+}
+
+.center{
+    text-align: center;
+}
+
+.top{
+    display: inline-block;
+    margin-right: 100px;
+}
+
+.topbar{
+    padding: 5px;
+    border-bottom: 2px solid black;
+    margin-bottom: 5px;
+}
+
+.others{
+    margin-left: 20px;
+}
+
+.desc{
+    margin-left: 20px;
+}

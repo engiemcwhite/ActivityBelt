@@ -1,0 +1,47 @@
+@model beltexam.Models.PlanViewModel
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Index</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="~/css/style.css"/>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="topbar">
+                <h1 class="top">Dojo Activity Center</h1>
+                <a href="/logout">Log Off</a> &nbsp; &nbsp;
+                <a href="/Home">Home</a>
+            </div>
+            <h1>Create an Activity</h1>
+            <div class="init">
+            <form asp-controller="Activity" asp-action="NewActivity" method="post">
+                <label asp-for="Title">Title:</label>
+                <input asp-for="Title"/><br>
+                <label asp-for="Time">Time:</label>
+                <input asp-for="Time"/><br>
+                <label asp-for="Date">Date:</label>
+                <input asp-for="Date"/><br>
+                <label asp-for="Duration">Duration:</label>
+                <input asp-for="Duration"/> 
+                <select asp-for="Unit">
+                    <option value="days">Days</option>
+                    <option value="hours">Hours</option>
+                    <option value="minutes">Minutes</option>
+                </select> <br>
+                <label asp-for="Desc">Description:</label> <br>
+                <textarea asp-for="Desc" rows="10" cols="50"/></textarea> <br>
+                <button type="submit">Create Activity</button>
+            </form>
+            <br>
+            <div asp-validation-summary="All"></div>
+            @{
+                if(ViewBag.TimeError == 2){
+                    <p>Activities must be planned in the future!</p>
+                }
+            }
+            </div>
+        </div>
+    </body>
+</html>

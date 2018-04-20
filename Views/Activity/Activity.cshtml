@@ -1,0 +1,47 @@
+<html>
+    <head>
+       <meta charset='utf-8'>
+       <title>Weddings</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="~/css/style.css"/>
+    </head>
+    <body>
+        <div wrapper>
+        <div class="topbar">
+            <h1 class="top">Dojo Activity Center</h1>
+            <a href="/logout">Log Off</a> &nbsp; &nbsp;
+            <a href="/Home">Home</a>
+        </div>
+        <h1>@ViewBag.Activity.Title</h1>
+        <div class="others">
+        <h3>Event Coordinator: @ViewBag.Activity.User.FirstName </h3>
+        <h3>Description:</h3>
+        <p class="desc">@ViewBag.Activity.Desc</p>
+        <h3>Participants:</h3>
+        @{
+            Boolean isin = false; 
+            foreach(var part in ViewBag.Activity.Participants){
+                if(part.UserId != ViewBag.Id){
+                    <span>@part.User.FirstName</span> <br>
+                }
+                else{
+                    isin = true; 
+                }
+            }
+            <h4>Action:</h4>
+            @if(ViewBag.Activity.UserId == ViewBag.Id){
+                <a href=/delete/@ViewBag.Activity.ActivityId>Delete</a>
+            }
+            else{
+                if(isin == true){
+                    <a href=/unrsvp/@ViewBag.Activity.ActivityId>Leave</a>
+                }
+                else{
+                    <a href=/rsvp/@ViewBag.Activity.ActivityId>Join</a>
+                }
+            } 
+        }
+        </div>
+        </div>
+    </body>
+</html>
